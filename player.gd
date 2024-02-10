@@ -5,8 +5,8 @@ const JUNP_VELOCITY := -300
 
 var gravity := ProjectSettings.get("physics/2d/default_gravity") as float
 
-@onready var sprite_2d = $Sprite2D
-@onready var animation_player = $AnimationPlayer
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _physics_process(delta: float) -> void:
