@@ -142,11 +142,11 @@ func can_wall_slide() -> bool:
 	return is_on_wall() and hand_checker.is_colliding() and foot_checker.is_colliding()
 
 func transition_state(from: State, to: State) -> void:
-	print("[%s] %s => %s" % [
-		Engine.get_physics_frames(),
-		State.keys()[from] if from != -1 else "<START>",
-		State.keys()[to],
-	])
+	#print("[%s] %s => %s" % [
+		#Engine.get_physics_frames(),
+		#State.keys()[from] if from != -1 else "<START>",
+		#State.keys()[to],
+	#])
 	
 	if from not in GROUND_STATE and to in GROUND_STATE:
 		coyote_timer.stop()
