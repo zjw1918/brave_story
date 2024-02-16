@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bitdu0ya1hwhl"]
+
+[ext_resource type="Texture2D" uid="uid://c5e7jwvnvhkep" path="res://assets/legacy_fantasy/HUD.png" id="1_27h83"]
+[ext_resource type="Script" path="res://ui/status_panel.gd" id="1_f6dto"]
+[ext_resource type="Texture2D" uid="uid://gv0crlaf2to5" path="res://assets/generic_char/char_blue_1.png" id="2_85c72"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0pg1k"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+texture = ExtResource("1_27h83")
+region_rect = Rect2(323, 203, 26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6b64"]
+atlas = ExtResource("2_85c72")
+region = Rect2(22, 24, 11, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apq05"]
+atlas = ExtResource("1_27h83")
+region = Rect2(307, 21, 58, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ogdbh"]
+atlas = ExtResource("1_27h83")
+region = Rect2(308, 118, 56, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jasm0"]
+atlas = ExtResource("1_27h83")
+region = Rect2(308, 86, 56, 4)
+
+[node name="StatusPanel" type="HBoxContainer"]
+script = ExtResource("1_f6dto")
+
+[node name="AvatarBox" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(26, 26)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_0pg1k")
+
+[node name="Avatar" type="TextureRect" parent="AvatarBox"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_m6b64")
+stretch_mode = 5
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 2.08165e-12
+texture_over = SubResource("AtlasTexture_apq05")
+texture_progress = SubResource("AtlasTexture_ogdbh")
+texture_progress_offset = Vector2(1, 1)
+
+[node name="EasedHealthBar" type="TextureProgressBar" parent="HealthBar"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 2.08165e-12
+value = 1.0
+texture_progress = SubResource("AtlasTexture_jasm0")
+texture_progress_offset = Vector2(1, 1)

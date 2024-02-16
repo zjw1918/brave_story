@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://chab0k7gtaxe"]
+[gd_scene load_steps=27 format=3 uid="uid://chab0k7gtaxe"]
 
 [ext_resource type="Texture2D" uid="uid://gv0crlaf2to5" path="res://assets/generic_char/char_blue_1.png" id="1_gpotp"]
 [ext_resource type="Script" path="res://player.gd" id="1_kbofh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://classes/Hurtbox.gd" id="3_ya4t7"]
 [ext_resource type="Script" path="res://classes/Hitbox.gd" id="4_gkdt3"]
 [ext_resource type="Script" path="res://classes/Stats.gd" id="7_o2hmd"]
+[ext_resource type="PackedScene" uid="uid://bitdu0ya1hwhl" path="res://ui/status_panel.tscn" id="8_eea6k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ulv46"]
 size = Vector2(12, 29)
@@ -1157,5 +1158,14 @@ script = ExtResource("7_o2hmd")
 [node name="InvincibleTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StatusPanel" parent="CanvasLayer" node_paths=PackedStringArray("stats") instance=ExtResource("8_eea6k")]
+offset_left = 9.0
+offset_top = 7.0
+offset_right = 97.0
+offset_bottom = 33.0
+stats = NodePath("../../Stats")
 
 [connection signal="hurt" from="Graphics/Hurtbox" to="." method="_on_hurtbox_hurt"]
