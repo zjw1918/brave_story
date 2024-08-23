@@ -41,6 +41,7 @@ var is_first_tick := false
 var is_combo_requested := false
 var pending_damage: Damage
 var fall_from_y: float
+var interacting_with: Interactable
 
 @export var can_combo := false
 
@@ -54,7 +55,7 @@ var fall_from_y: float
 @onready var state_machine: StateMachine = $StateMachine
 @onready var stats: Stats = $Stats
 @onready var invincible_timer: Timer = $InvincibleTimer
-
+@onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
@@ -67,8 +68,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		is_combo_requested = true
 	if event.is_action_pressed("slide"):
 		slide_request_timer.start()
+	if event.is_action_pressed("interact") and interacting_with:
+		interacting_with.interact()
 
 func tick_physics(state: State, delta: float) -> void:
+	interaction_icon.visible = interacting_with != null
+	
 	if invincible_timer.time_left > 0:
 		graphics.modulate.a = sin(Time.get_ticks_msec() / 20) * 0.5 + 0.5
 	else:
