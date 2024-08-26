@@ -41,7 +41,7 @@ var is_first_tick := false
 var is_combo_requested := false
 var pending_damage: Damage
 var fall_from_y: float
-var interacting_with: Interactable
+var interacting_with: Array[Interactable]
 
 @export var can_combo := false
 
@@ -69,10 +69,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("slide"):
 		slide_request_timer.start()
 	if event.is_action_pressed("interact") and interacting_with:
-		interacting_with.interact()
+		interacting_with.back().interact()
+
+func registerInteractable(interactable: Interactable) -> void:
+	if not interactable in interacting_with:
+		interacting_with.append(interactable)
+
+func unregisterInteractable(interactable: Interactable) -> void:
+	interacting_with.erase(interactable)
 
 func tick_physics(state: State, delta: float) -> void:
-	interaction_icon.visible = interacting_with != null
+	interaction_icon.visible = not interacting_with.is_empty()
 	
 	if invincible_timer.time_left > 0:
 		graphics.modulate.a = sin(Time.get_ticks_msec() / 20) * 0.5 + 0.5
