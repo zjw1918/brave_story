@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://tlug0ysy5igy"]
+[gd_scene load_steps=12 format=3 uid="uid://tlug0ysy5igy"]
 
 [ext_resource type="Texture2D" uid="uid://kvf2nnor22sx" path="res://assets/legacy_fantasy/Trees/Tree-Assets.png" id="1_r8q4x"]
 [ext_resource type="Script" path="res://world.gd" id="1_x2jq5"]
 [ext_resource type="PackedScene" uid="uid://chab0k7gtaxe" path="res://player.tscn" id="2_sdag0"]
+[ext_resource type="PackedScene" uid="uid://clsxlja2qo6s2" path="res://objects/mine_gate.tscn" id="3_0dqc0"]
 [ext_resource type="Texture2D" uid="uid://bkgmjdmmey4af" path="res://assets/legacy_fantasy/Background/Background.png" id="4_n58au"]
 [ext_resource type="Texture2D" uid="uid://drdka0mnnpgco" path="res://assets/legacy_fantasy/Trees/Background.png" id="5_qhvb7"]
 [ext_resource type="PackedScene" uid="uid://ckn5yhaak1f7j" path="res://enemies/boar.tscn" id="6_tpe5m"]
@@ -373,6 +374,10 @@ layer_1/tile_data = PackedInt32Array(851974, 196608, 4, 786438, 131072, 2, 85197
 layer_2/name = "Foreground"
 layer_2/tile_data = PackedInt32Array(720907, 458752, 3, 720911, 589824, 3, 720912, 524288, 2, 589829, 589824, 2, 589826, 524288, 2, 524318, 393216, 3, 524319, 655360, 2, -458739, 524288, 3, -458741, 524288, 2, -458743, 655360, 2, -458745, 589824, 3, -458749, 393216, 3, 131082, 720896, 8, 65546, 720896, 7, 10, 720896, 6, 131081, 655360, 8, 65545, 655360, 7, 9, 655360, 6, 131080, 655360, 8, 65544, 655360, 7, 8, 655360, 6, 131079, 589824, 8, 65543, 589824, 7, 7, 589824, 6)
 
+[node name="MineGate" parent="TileMap" instance=ExtResource("3_0dqc0")]
+position = Vector2(766, 145)
+path = "res://world.tscn"
+
 [node name="Player" parent="." instance=ExtResource("2_sdag0")]
 position = Vector2(516, 84)
 
@@ -544,6 +549,12 @@ region_rect = Rect2(210, 293, 124, 86)
 
 [node name="Tree-assets3" type="Sprite2D" parent="Decorations/Foreground/Bushes"]
 position = Vector2(455, 210)
+texture = ExtResource("1_r8q4x")
+region_enabled = true
+region_rect = Rect2(210, 293, 124, 86)
+
+[node name="Tree-assets13" type="Sprite2D" parent="Decorations/Foreground/Bushes"]
+position = Vector2(694, 177)
 texture = ExtResource("1_r8q4x")
 region_enabled = true
 region_rect = Rect2(210, 293, 124, 86)
