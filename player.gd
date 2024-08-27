@@ -1,6 +1,11 @@
 class_name Player
 extends CharacterBody2D
 
+enum FACING {
+	LEFT = -1,
+	RIGHT = 1,
+}
+
 enum State {
 	IDLE,
 	RUNNING,
@@ -44,6 +49,12 @@ var fall_from_y: float
 var interacting_with: Array[Interactable]
 
 @export var can_combo := false
+@export var facing := FACING.RIGHT:
+	set(v):
+		facing = v
+		if not is_node_ready():
+			await ready
+		graphics.scale.x = facing
 
 @onready var graphics: Node2D = $Graphics
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -53,7 +64,7 @@ var interacting_with: Array[Interactable]
 @onready var hand_checker: RayCast2D = $Graphics/HandChecker
 @onready var foot_checker: RayCast2D = $Graphics/FootChecker
 @onready var state_machine: StateMachine = $StateMachine
-@onready var stats: Stats = $Stats
+@onready var stats: Stats = Game.stats
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
 
@@ -100,11 +111,11 @@ func tick_physics(state: State, delta: float) -> void:
 		State.WALL_SLIDING:
 			move(default_gravity / 3.0, delta)
 			# get the wall facing, -1 or 1
-			graphics.scale.x = get_wall_normal().x
+			facing = FACING.LEFT if get_wall_normal().x < 0 else FACING.RIGHT
 		State.WALL_JUMP:
 			if state_machine.state_time < 0.1:
 				stand(0.0 if is_first_tick else default_gravity, delta)
-				graphics.scale.x = get_wall_normal().x
+				facing = FACING.LEFT if get_wall_normal().x < 0 else FACING.RIGHT
 			else:
 				move(default_gravity, delta)
 		State.ATTACK_1, State.ATTACK_2, State.ATTACK_3:
@@ -120,14 +131,14 @@ func tick_physics(state: State, delta: float) -> void:
 	is_first_tick = false
 	
 func move(gravity: float, delta: float) -> void:
-	var direction := Input.get_axis("move_left", "move_right")
+	var movement := Input.get_axis("move_left", "move_right")
 	var acceleration := ACCELERATION_FLOOR if is_on_floor() else ACCELERATION_AIR
-	velocity.x = move_toward(velocity.x, direction * RUN_SPEED, acceleration * delta)
+	velocity.x = move_toward(velocity.x, movement * RUN_SPEED, acceleration * delta)
 	velocity.y += gravity * delta
 	
 	# horizontal flip player
-	if not is_zero_approx(direction):
-		graphics.scale.x = -1 if direction < 0 else 1
+	if not is_zero_approx(movement):
+		facing = FACING.LEFT if movement < 0 else FACING.RIGHT
 
 	move_and_slide()
 	

@@ -7,16 +7,21 @@ extends HBoxContainer
 @onready var energy_bar: TextureProgressBar = $VBoxContainer/EnergyBar
 
 func _ready():
+	if not stats:
+		stats = Game.stats
+	
 	stats.health_change.connect(update_health)
-	update_health()
+	update_health(true)
 	stats.energy_change.connect(update_energy)
 	update_energy()
 	
-func update_health() -> void:
+func update_health(skip_anim: bool = false) -> void:
 	var percentage = stats.health / float(stats.max_health)
 	health_bar.value = percentage
-	
-	create_tween().tween_property(eased_health_bar, "value", percentage, 0.3)
+	if skip_anim:
+		eased_health_bar.value = percentage
+	else:
+		create_tween().tween_property(eased_health_bar, "value", percentage, 0.3)
 
 func update_energy() -> void:
 	var percentage = stats.energy / stats.max_energy

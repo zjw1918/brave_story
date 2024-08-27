@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://chab0k7gtaxe"]
+[gd_scene load_steps=35 format=3 uid="uid://chab0k7gtaxe"]
 
 [ext_resource type="Texture2D" uid="uid://gv0crlaf2to5" path="res://assets/generic_char/char_blue_1.png" id="1_gpotp"]
 [ext_resource type="Script" path="res://player.gd" id="1_kbofh"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://classes/StateMachine.gd" id="3_h64nc"]
 [ext_resource type="Script" path="res://classes/Hurtbox.gd" id="3_ya4t7"]
 [ext_resource type="Script" path="res://classes/Hitbox.gd" id="4_gkdt3"]
-[ext_resource type="Script" path="res://classes/Stats.gd" id="7_o2hmd"]
 [ext_resource type="PackedScene" uid="uid://bitdu0ya1hwhl" path="res://ui/status_panel.tscn" id="8_eea6k"]
 [ext_resource type="Texture2D" uid="uid://btcs7qmqrooto" path="res://assets/gdb-gamepad-2/gdb-keyboard-2.png" id="9_tfo3p"]
 
@@ -2400,21 +2399,17 @@ one_shot = true
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_h64nc")
 
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("7_o2hmd")
-
 [node name="InvincibleTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="StatusPanel" parent="CanvasLayer" node_paths=PackedStringArray("stats") instance=ExtResource("8_eea6k")]
+[node name="StatusPanel" parent="CanvasLayer" instance=ExtResource("8_eea6k")]
 offset_left = 9.0
 offset_top = 7.0
 offset_right = 97.0
 offset_bottom = 33.0
-stats = NodePath("../../Stats")
 
 [node name="InteractionIcon" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -46)

@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var tile_map: TileMap = $TileMap
 @onready var camera_2d: Camera2D = $Player/Camera2D
+@onready var player: Player = $Player
 
 func _ready() -> void:
 	var used := tile_map.get_used_rect().grow(-1)
@@ -13,3 +14,9 @@ func _ready() -> void:
 	camera_2d.limit_right = used.end.x * tile_size.x
 	camera_2d.reset_smoothing()
 	
+
+func update_player(pos: Vector2, facing: Player.FACING) -> void:
+	player.global_position = pos
+	player.facing = facing
+	camera_2d.reset_smoothing()
+	camera_2d.force_update_scroll()
