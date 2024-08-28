@@ -42,5 +42,3 @@ func change_scene(path: String, entry_name: String) -> void:
 	tween = create_tween()
 	tween.tween_property(color_rect, "color:a", 0, 0.2)
 	
-	
-	
