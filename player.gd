@@ -38,7 +38,7 @@ const WALL_JUMP_VELOCITY := Vector2(380, -280)
 const KNOCKBACK_AMOUNT: float = 512.0
 const SLIDING_DURATION: float = 0.3
 const SLIDING_SPEED := 256.0
-const LANDING_HEIGHT := 100.0
+const LANDING_HEIGHT := 80.0
 const ENERGY_CONSUMPTION := 4.0
 
 var default_gravity := ProjectSettings.get("physics/2d/default_gravity") as float
@@ -64,7 +64,7 @@ var interacting_with: Array[Interactable]
 @onready var hand_checker: RayCast2D = $Graphics/HandChecker
 @onready var foot_checker: RayCast2D = $Graphics/FootChecker
 @onready var state_machine: StateMachine = $StateMachine
-@onready var stats: Stats = Game.stats
+@onready var stats: Stats = Game.player_stats
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
 
@@ -260,11 +260,11 @@ func can_wall_slide() -> bool:
 	return is_on_wall() and hand_checker.is_colliding() and foot_checker.is_colliding()
 
 func transition_state(from: State, to: State) -> void:
-	#print("[%s] %s => %s" % [
-		#Engine.get_physics_frames(),
-		#State.keys()[from] if from != -1 else "<START>",
-		#State.keys()[to],
-	#])
+	print("[%s] %s => %s" % [
+		Engine.get_physics_frames(),
+		State.keys()[from] if from != -1 else "<START>",
+		State.keys()[to],
+	])
 	
 	if from not in GROUND_STATE and to in GROUND_STATE:
 		coyote_timer.stop()
@@ -319,6 +319,7 @@ func transition_state(from: State, to: State) -> void:
 		State.DYING:
 			animation_player.play("die")
 			invincible_timer.stop()
+			stats.health = stats.max_health
 			
 		State.SLIDING_START:
 			animation_player.play("sliding_start")

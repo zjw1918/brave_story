@@ -448,7 +448,7 @@ position = Vector2(120, 352)
 script = ExtResource("3_e7u1v")
 
 [node name="Player" parent="." instance=ExtResource("2_gcg53")]
-position = Vector2(232, 240)
+position = Vector2(224, 56)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -15)
@@ -459,7 +459,7 @@ drag_vertical_enabled = true
 editor_draw_drag_margin = true
 
 [node name="Boar" parent="." instance=ExtResource("3_7y5p5")]
-position = Vector2(416, 200)
+position = Vector2(368, 216)
 
 [node name="Decorations" type="Node2D" parent="."]
 metadata/_edit_lock_ = true

@@ -19,5 +19,6 @@ func _ready() -> void:
 func update_player(pos: Vector2, facing: Player.FACING) -> void:
 	player.global_position = pos
 	player.facing = facing
+	player.fall_from_y = pos.y
 	camera_2d.reset_smoothing()
 	camera_2d.force_update_scroll()
