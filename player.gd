@@ -68,6 +68,11 @@ var interacting_with: Array[Interactable]
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
 
+func _ready() -> void:
+	print("player_stats.health: ", stats.health)
+	if stats.health <= 0:
+		stats.health = stats.max_health
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
 		jump_request_timer.start()
@@ -82,9 +87,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact") and interacting_with:
 		interacting_with.back().interact()
 
-func registerInteractable(interactable: Interactable) -> void:
-	if not interactable in interacting_with:
-		interacting_with.append(interactable)
+func registerInteractable(v: Interactable) -> void:
+	if state_machine.current_state == State.DYING:
+		return
+	if not v in interacting_with:
+		interacting_with.append(v)
 
 func unregisterInteractable(interactable: Interactable) -> void:
 	interacting_with.erase(interactable)
@@ -319,7 +326,8 @@ func transition_state(from: State, to: State) -> void:
 		State.DYING:
 			animation_player.play("die")
 			invincible_timer.stop()
-			stats.health = stats.max_health
+			interacting_with.clear()
+			#stats.health = stats.max_health
 			
 		State.SLIDING_START:
 			animation_player.play("sliding_start")

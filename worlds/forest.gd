@@ -1,4 +1,4 @@
-extends Node2D
+extends BaseWorld
 
 @onready var tile_map: TileMap = $TileMap
 @onready var camera_2d: Camera2D = $Player/Camera2D
@@ -18,5 +18,6 @@ func _ready() -> void:
 func update_player(pos: Vector2, facing: Player.FACING) -> void:
 	player.global_position = pos
 	player.facing = facing
+	player.fall_from_y = pos.y
 	camera_2d.reset_smoothing()
 	camera_2d.force_update_scroll()

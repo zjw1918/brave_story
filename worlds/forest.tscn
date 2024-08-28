@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://tlug0ysy5igy"]
 
-[ext_resource type="Script" path="res://worlds/world.gd" id="1_dwx1q"]
+[ext_resource type="Script" path="res://worlds/forest.gd" id="1_dwx1q"]
 [ext_resource type="Texture2D" uid="uid://kvf2nnor22sx" path="res://assets/legacy_fantasy/Trees/Tree-Assets.png" id="2_doejd"]
 [ext_resource type="PackedScene" uid="uid://clsxlja2qo6s2" path="res://objects/mine_gate.tscn" id="3_p4132"]
 [ext_resource type="Script" path="res://EntryPoint.gd" id="4_3uce5"]
@@ -634,6 +634,9 @@ region_rect = Rect2(210, 293, 124, 86)
 
 [node name="Boar" parent="." instance=ExtResource("8_g6nqn")]
 position = Vector2(430, 133)
+
+[node name="Boar2" parent="." instance=ExtResource("8_g6nqn")]
+position = Vector2(224, 184)
 
 [node name="Mushroom" type="Area2D" parent="."]
 position = Vector2(263, 177)
