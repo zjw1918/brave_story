@@ -164,7 +164,7 @@ func should_slide() -> bool:
 	return not foot_checker.is_colliding()
 
 func get_next_state(state: State) -> int:
-	if  stats.health == 0:
+	if stats.health == 0:
 		return StateMachine.KEEP_CURRENT if state == State.DYING else State.DYING
 		
 	if pending_damage:
