@@ -361,7 +361,7 @@ sources/0 = SubResource("TileSetAtlasSource_sdo2q")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tr8gm"]
 size = Vector2(14, 21)
 
-[node name="World" type="Node2D"]
+[node name="Forest" type="Node2D"]
 script = ExtResource("1_dwx1q")
 metadata/_edit_horizontal_guides_ = [224.0]
 
