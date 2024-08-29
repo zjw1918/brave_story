@@ -430,7 +430,7 @@ texture = ExtResource("1_t2yrd")
 [sub_resource type="TileSet" id="TileSet_y1xxl"]
 sources/0 = SubResource("TileSetAtlasSource_5qkdd")
 
-[node name="Mine" type="Node2D"]
+[node name="Cave" type="Node2D"]
 script = ExtResource("1_yahss")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
