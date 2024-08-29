@@ -33,8 +33,6 @@ func change_scene(path: String, params := {}) -> void:
 	tree.change_scene_to_file(path)
 	await tree.tree_changed
 	
-	
-	
 	# recover some states from the dictionary
 	var new_name := tree.current_scene.scene_file_path.get_file().get_basename() # cave, forest
 	if new_name in world_states:

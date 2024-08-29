@@ -15,6 +15,12 @@ func _ready():
 	stats.energy_change.connect(update_energy)
 	update_energy()
 	
+	# 4.2+
+	tree_exited.connect(func():
+		stats.health_change.disconnect(update_health)
+		stats.energy_change.disconnect(update_energy)
+	)
+	
 func update_health(skip_anim: bool = false) -> void:
 	var percentage = stats.health / float(stats.max_health)
 	health_bar.value = percentage
