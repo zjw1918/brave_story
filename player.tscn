@@ -2404,6 +2404,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 20
 
 [node name="StatusPanel" parent="CanvasLayer" instance=ExtResource("8_eea6k")]
 offset_left = 9.0

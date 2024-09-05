@@ -485,6 +485,7 @@ one_shot = true
 max_health = 5
 
 [node name="StatusPanel" parent="." index="6" node_paths=PackedStringArray("stats") instance=ExtResource("7_s70h7")]
+visible = false
 offset_left = -53.0
 offset_top = -51.0
 offset_right = 35.0
