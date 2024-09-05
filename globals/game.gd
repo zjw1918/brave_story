@@ -9,6 +9,7 @@ var world_states := {}
 
 @onready var player_stats: Stats = $PlayerStats
 @onready var color_rect: ColorRect = $ColorRect
+@onready var default_player_stats := player_stats.to_dict()
 
 func _ready() -> void:
 	color_rect.color.a = 0
@@ -23,9 +24,10 @@ func change_scene(path: String, params := {}) -> void:
 	tween.tween_property(color_rect, "color:a", 1, 0.2)
 	await tween.finished
 	
-	# save some states, eg. enemies have been killed
-	var old_name := tree.current_scene.scene_file_path.get_file().get_basename() # cave, forest
-	world_states[old_name] = tree.current_scene.to_dict() # to_dict() should be implemented in the scene file
+	if  tree.current_scene is BaseWorld:
+		# save some states, eg. enemies have been killed
+		var old_name := tree.current_scene.scene_file_path.get_file().get_basename() # cave, forest
+		world_states[old_name] = tree.current_scene.to_dict() # to_dict() should be implemented in the scene file
 	
 	if "init" in params:
 		params.init.call()
@@ -33,21 +35,22 @@ func change_scene(path: String, params := {}) -> void:
 	tree.change_scene_to_file(path)
 	await tree.tree_changed
 	
-	# recover some states from the dictionary
-	var new_name := tree.current_scene.scene_file_path.get_file().get_basename() # cave, forest
-	if new_name in world_states:
-		tree.current_scene.from_dict(world_states[new_name])
-	
-	# update player info
-	if "entry_point" in params:
-		for node in tree.get_nodes_in_group("entry_points"):
-			if node.name == params.entry_point:
-				tree.current_scene.update_player(node.global_position, node.facing)
-				break
-	
-	# recover from saved file
-	if "position" in params and "facing" in params:
-		tree.current_scene.update_player(params.position, params.facing)
+	if tree.current_scene is BaseWorld:
+		# recover some states from the dictionary
+		var new_name := tree.current_scene.scene_file_path.get_file().get_basename() # cave, forest
+		if new_name in world_states:
+			tree.current_scene.from_dict(world_states[new_name])
+		
+		# update player info
+		if "entry_point" in params:
+			for node in tree.get_nodes_in_group("entry_points"):
+				if node.name == params.entry_point:
+					tree.current_scene.update_player(node.global_position, node.facing)
+					break
+		
+		# recover from saved file
+		if "position" in params and "facing" in params:
+			tree.current_scene.update_player(params.position, params.facing)
 
 	tree.paused = false
 	tween = create_tween()
@@ -98,10 +101,18 @@ func load_game() -> void:
 			player_stats.from_dict(data.stats)
 	})
 	
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		load_game()
+func new_game() -> void:
+	change_scene("res://worlds/forest.tscn", {
+		init=func():
+			world_states = {}
+			player_stats.from_dict(default_player_stats)
+	})
 	
+func back_to_title() -> void:
+	change_scene("res://ui/title_screen.tscn")
+	
+func has_saved_file() -> bool:
+	return FileAccess.file_exists(SAVE_PATH)
 	
 	
 	
