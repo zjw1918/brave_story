@@ -481,3 +481,5 @@ tile_set = SubResource("TileSet_y1xxl")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.544974, 0.544974, 0.544974, 1)
+
+[connection signal="died" from="Boar" to="." method="_on_boar_died"]

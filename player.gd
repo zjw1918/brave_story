@@ -67,11 +67,12 @@ var interacting_with: Array[Interactable]
 @onready var stats: Stats = Game.player_stats
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
+@onready var game_over_screen: Control = $CanvasLayer/GameOverScreen
 
-func _ready() -> void:
-	print("player_stats.health: ", stats.health)
-	if stats.health <= 0:
-		stats.health = stats.max_health
+#func _ready() -> void:
+	#print("player_stats.health: ", stats.health)
+	#if stats.health <= 0:
+		#stats.health = stats.max_health
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
@@ -161,7 +162,8 @@ func slide(delta: float) -> void:
 	move_and_slide()
 
 func die() -> void:
-	get_tree().reload_current_scene()
+	#get_tree().reload_current_scene()
+	game_over_screen.show_game_over()
 
 func should_slide() -> bool:
 	if slide_request_timer.is_stopped():
@@ -327,7 +329,6 @@ func transition_state(from: State, to: State) -> void:
 			animation_player.play("die")
 			invincible_timer.stop()
 			interacting_with.clear()
-			#stats.health = stats.max_health
 			
 		State.SLIDING_START:
 			animation_player.play("sliding_start")

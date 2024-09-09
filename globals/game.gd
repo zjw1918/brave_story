@@ -15,13 +15,15 @@ func _ready() -> void:
 	color_rect.color.a = 0
 
 func change_scene(path: String, params := {}) -> void:
+	var duration := params.get("durarion", 0.2) as float
+	
 	var tree := get_tree()
 	tree.paused = true
 	
 	var tween := create_tween()
 	# tween animation won't stop because of tree.pause
 	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	tween.tween_property(color_rect, "color:a", 1, 0.2)
+	tween.tween_property(color_rect, "color:a", 1, duration)
 	await tween.finished
 	
 	if  tree.current_scene is BaseWorld:
@@ -54,7 +56,8 @@ func change_scene(path: String, params := {}) -> void:
 
 	tree.paused = false
 	tween = create_tween()
-	tween.tween_property(color_rect, "color:a", 0, 0.2)
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
+	tween.tween_property(color_rect, "color:a", 0, duration)
 	
 func save_game() -> void:
 	var scene := get_tree().current_scene
@@ -103,13 +106,14 @@ func load_game() -> void:
 	
 func new_game() -> void:
 	change_scene("res://worlds/forest.tscn", {
+		durarion=1,
 		init=func():
 			world_states = {}
 			player_stats.from_dict(default_player_stats)
 	})
 	
 func back_to_title() -> void:
-	change_scene("res://ui/title_screen.tscn")
+	change_scene("res://ui/title_screen.tscn", {durarion=1})
 	
 func has_saved_file() -> bool:
 	return FileAccess.file_exists(SAVE_PATH)
