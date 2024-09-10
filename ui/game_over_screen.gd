@@ -31,4 +31,5 @@ func show_game_over() -> void:
 	show()
 	set_process_input(true)
 	animation_player.play("enter")
+	SoundManager.play_bgm(preload("res://assets/bgm/29 15 game over LOOP.mp3"))
 	

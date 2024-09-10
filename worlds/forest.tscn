@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://tlug0ysy5igy"]
+[gd_scene load_steps=15 format=3 uid="uid://tlug0ysy5igy"]
 
 [ext_resource type="Script" path="res://worlds/forest.gd" id="1_dwx1q"]
 [ext_resource type="Texture2D" uid="uid://kvf2nnor22sx" path="res://assets/legacy_fantasy/Trees/Tree-Assets.png" id="2_doejd"]
+[ext_resource type="AudioStream" uid="uid://ttvuse77l6s" path="res://assets/bgm/21 11 forest LOOP.mp3" id="2_pulac"]
 [ext_resource type="PackedScene" uid="uid://clsxlja2qo6s2" path="res://objects/mine_gate.tscn" id="3_p4132"]
 [ext_resource type="Script" path="res://EntryPoint.gd" id="4_3uce5"]
 [ext_resource type="PackedScene" uid="uid://chab0k7gtaxe" path="res://player.tscn" id="5_23bmb"]
@@ -364,6 +365,7 @@ size = Vector2(14, 21)
 
 [node name="Forest" type="Node2D"]
 script = ExtResource("1_dwx1q")
+bgm = ExtResource("2_pulac")
 metadata/_edit_horizontal_guides_ = [224.0]
 
 [node name="TileMap" type="TileMap" parent="."]
