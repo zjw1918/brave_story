@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://1jkr1adg1n5d"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://1jkr1adg1n5d"]
 
 [ext_resource type="FontFile" uid="uid://bd8xgp1ligmec" path="res://assets/SmileySans-Oblique.otf" id="1_2ufnt"]
 [ext_resource type="Texture2D" uid="uid://c5e7jwvnvhkep" path="res://assets/legacy_fantasy/HUD.png" id="1_u0qgo"]
@@ -17,6 +17,25 @@ texture_margin_right = 3.0
 texture_margin_bottom = 3.0
 region_rect = Rect2(94, 14, 20, 20)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cb5vg"]
+atlas = ExtResource("1_u0qgo")
+region = Rect2(3, 130, 11, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbqge"]
+atlas = ExtResource("1_u0qgo")
+region = Rect2(19, 130, 11, 11)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x668v"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_21n5s"]
+texture = ExtResource("1_u0qgo")
+texture_margin_left = 2.0
+texture_margin_top = 3.0
+texture_margin_right = 2.0
+texture_margin_bottom = 3.0
+expand_margin_bottom = 1.0
+region_rect = Rect2(95, 207, 18, 18)
+
 [resource]
 default_font = ExtResource("1_2ufnt")
 Button/colors/font_outline_color = Color(0, 0, 0, 0.737255)
@@ -27,3 +46,8 @@ Button/styles/focus = SubResource("StyleBoxTexture_577q5")
 Button/styles/hover = SubResource("StyleBoxEmpty_osovb")
 Button/styles/normal = SubResource("StyleBoxEmpty_osovb")
 Button/styles/pressed = SubResource("StyleBoxEmpty_osovb")
+HSlider/icons/grabber = SubResource("AtlasTexture_cb5vg")
+HSlider/icons/grabber_highlight = SubResource("AtlasTexture_qbqge")
+HSlider/styles/grabber_area = SubResource("StyleBoxEmpty_x668v")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxEmpty_x668v")
+HSlider/styles/slider = SubResource("StyleBoxTexture_21n5s")

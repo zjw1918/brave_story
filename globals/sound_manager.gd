@@ -5,6 +5,8 @@ extends Node
 
 # bgm sound shoube be able to loop, set them loop in "Import" tab
 
+enum BUS {MASTER, SFX, BGM}
+
 const SFX_ATTACK := "Attack"
 const SFX_JUMP := "Jump"
 const SFX_UI_PRESSED := "UIPressed"
@@ -39,3 +41,10 @@ func resgister_ui_sounds(node: Node) -> void:
 	
 	for child in node.get_children():
 		resgister_ui_sounds(child)
+
+func get_volume(bus_index: int) -> float:
+	var db := AudioServer.get_bus_volume_db(bus_index)
+	return db_to_linear(db)
+
+func set_volume(bus_index: int, v: float) -> void:
+	AudioServer.set_bus_volume_db(bus_index, linear_to_db(v))
