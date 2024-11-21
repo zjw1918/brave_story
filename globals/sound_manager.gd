@@ -33,14 +33,22 @@ func play_bgm(audio_stream: AudioStream) -> void:
 	bgm_player.play()
 	print("bgm name: ", audio_stream)
 
-func resgister_ui_sounds(node: Node) -> void:
+func register_ui_sounds(node: Node) -> void:
 	var button := node as Button
 	if button:
 		button.pressed.connect(play_sfx.bind(SFX_UI_PRESSED))
 		button.focus_entered.connect(play_sfx.bind(SFX_UI_FOCUSED))
+		button.mouse_entered.connect(button.grab_focus)
+		
+	var slider := node as Slider
+	if slider:
+		# value_changed already has 1 value, so bind need to unbind the fist
+		slider.value_changed.connect(play_sfx.bind(SFX_UI_PRESSED).unbind(1))
+		slider.focus_entered.connect(play_sfx.bind(SFX_UI_FOCUSED))
+		slider.mouse_entered.connect(slider.grab_focus)
 	
 	for child in node.get_children():
-		resgister_ui_sounds(child)
+		register_ui_sounds(child)
 
 func get_volume(bus_index: int) -> float:
 	var db := AudioServer.get_bus_volume_db(bus_index)

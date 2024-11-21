@@ -68,6 +68,7 @@ var interacting_with: Array[Interactable]
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var interaction_icon: AnimatedSprite2D = $InteractionIcon
 @onready var game_over_screen: Control = $CanvasLayer/GameOverScreen
+@onready var pause_screen: Control = $CanvasLayer/PauseScreen
 
 #func _ready() -> void:
 	#print("player_stats.health: ", stats.health)
@@ -87,6 +88,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		slide_request_timer.start()
 	if event.is_action_pressed("interact") and interacting_with:
 		interacting_with.back().interact()
+	if event.is_action_pressed("pause"):
+		pause_screen.show_pause()
 
 func registerInteractable(v: Interactable) -> void:
 	if state_machine.current_state == State.DYING:
